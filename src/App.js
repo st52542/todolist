@@ -74,12 +74,13 @@ function App() {
         Active tasks: {todoList.length}
 
         {todoList.map(item => <div>
-          <div key={item.id}>{item.text}</div>
+          <div key={item.id}>{item.text +" s prioritou: " + item.priority}</div>
+
           <button onClick={() => {
             completeTaskHandler(item.id)
           }}>Hotovo
           </button>
-          <div key={item.id}>Priorita je: {item.priority}</div>
+
         </div>)}
 
         <a href={"https://github.com/st52542/todolist"}>Github</a>
