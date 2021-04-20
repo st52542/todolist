@@ -34,7 +34,7 @@ function App() {
 
 
   const [todoList, setTodoList] = useState(listOfToDo);
-  const [descriptive, setDescriptive] = useState("")
+  const [descriptive, setDescriptive] = useState("Ukol " + todoList.length)
   const [priority, setPriority] = useState(1)
 
   const newTaskHandler = () => {
@@ -47,43 +47,55 @@ function App() {
     todoList.sort(function (a, b) {
       return a.priority - b.priority;
     });
-    setDescriptive("new Task " + todoList.length)
+    setDescriptive("Ukol " + todoList.length)
     setPriority(1)
   }
 
-  const completeTaskHandler = (idTask) => {
-    console.log(idTask)
-    const filtered = todoList.filter(item => item.id !== idTask)
-    console.log(filtered)
-    filtered.sort(function (a, b) {
+  const completeTaskHandler = (idEvenet) => {
+    const changed = todoList.filter(event => event.id !== idEvenet)
+    changed.sort(function (a, b) {
       return a.priority - b.priority;
     });
-    console.log(filtered)
-    setTodoList(filtered)
-    console.log(todoList);
+    setTodoList(changed)
   }
 
   return (
       <div className="App">
-        <div>
+        <div style={{
+          width: "20%",
+          border:"1px solid black",
+          display: "flex",
+          margin:"auto"
+        }}>
           New task:
           <input type={"text"} value={descriptive} onChange={(eventDesc) => setDescriptive(eventDesc.target.value)}/>
           <input type={"number"} value={priority} onChange={(eventPrio) => setPriority(eventPrio.target.value)}/>
           <button onClick={newTaskHandler}>Add</button>
         </div>
         Active tasks: {todoList.length}
-
-        {todoList.map(item => <div>
-          <div key={item.id}>{item.text +" s prioritou: " + item.priority}</div>
-
+        {todoList.map(event => <div style={{
+          width: "95%",
+          border:"1px solid black",
+          display: "flex",
+          flexDirection:"column",
+          margin:"auto",
+          padding:"10px"
+        }}>
+          <div key={event.id} style={{
+            width: "10%"
+          }}>{event.text +" s prioritou: " + event.priority}</div>
           <button onClick={() => {
-            completeTaskHandler(item.id)
-          }}>Hotovo
+            completeTaskHandler(event.id)
+          }} style={{
+            width: "20%",
+            height: "20%",
+            marginLeft:"auto"
+                      }}>Hotovo
           </button>
 
         </div>)}
 
-        <a href={"https://github.com/st52542/todolist"}>Github</a>
+        <a href={"https://github.com/st52542/todolist"}>Github Link</a>
 
       </div>
   );
